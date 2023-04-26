@@ -1,7 +1,7 @@
 return {
   "williamboman/mason.nvim",
   opts = function(_, opts)
-    vim.list_extend(opts.ensure_installed, {
+    table.insert(opts.ensure_installed, {
       "stylua",
       "luacheck",
       "shellcheck",
@@ -10,6 +10,10 @@ return {
       "black",
       "isort",
       "flake8",
+      "markdownlint",
+      "proselint",
+      "write-good",
+      "alex",
     })
   end,
 }
