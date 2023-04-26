@@ -8,9 +8,11 @@ return {
       nls.builtins.code_actions.proselint,
       nls.builtins.diagnostics.alex,
       nls.builtins.diagnostics.write_good,
+      nls.builtins.formatting.rustfmt,
       nls.builtins.formatting.isort,
       nls.builtins.formatting.black,
       nls.builtins.diagnostics.flake8,
+      nls.builtins.diagnostics.ruff,
       nls.builtins.diagnostics.luacheck.with({
         condition = function(utils)
           return utils.root_has_file({ ".luacheckrc" })
