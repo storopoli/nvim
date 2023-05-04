@@ -12,6 +12,7 @@ return {
       gopls = {},
       marksman = {},
       pyright = {},
+      typst_lsp = {},
       yamlls = {},
     },
   },
