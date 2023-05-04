@@ -16,6 +16,7 @@ return {
       "proselint",
       "write-good",
       "alex",
+      "typst-lsp",
     })
   end,
 }
