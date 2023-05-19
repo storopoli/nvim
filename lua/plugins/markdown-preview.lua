@@ -1,10 +1,19 @@
 return {
-  "iamcco/markdown-preview.nvim",
-  ft = "markdown",
-  buid = function()
-    vim.fn["mkdp#util#install"]()
-  end,
+  "toppair/peek.nvim",
+  build = "deno task --quiet build:fast",
   keys = {
-    { "<leader>up", vim.cmd.MarkdownPreviewToggle, desc = "Markdown Preview" },
+    {
+      "<leader>up",
+      function()
+        local peek = require("peek")
+        if peek.is_open() then
+          peek.close()
+        else
+          peek.open()
+        end
+      end,
+      desc = "Peek (Markdown Preview)",
+    },
   },
+  opts = { theme = "light" },
 }
