@@ -1,5 +1,11 @@
 return {
-  { "lewis6991/satellite.nvim", opts = {}, event = "VeryLazy", enabled = false },
+  {
+    -- requires neovim nightly
+    "lewis6991/satellite.nvim",
+    event = "VeryLazy",
+    config = true,
+    enabled = false,
+  },
   {
     "echasnovski/mini.map",
     main = "mini.map",
