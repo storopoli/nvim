@@ -6,6 +6,7 @@ return {
         "stylua",
         "luacheck",
         "shellcheck",
+        "shellharden",
         "rustfmt",
         "prettierd",
         "shfmt",
