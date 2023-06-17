@@ -19,6 +19,7 @@ return {
         "write-good",
         "alex",
         "typst-lsp",
+        -- "nil", -- fails on macOS
       })
     end,
   },
