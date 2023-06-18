@@ -14,7 +14,7 @@ return {
       pyright = {},
       typst_lsp = {},
       yamlls = {},
-      nil_ls = {},
+      -- nil_ls = {},
     },
   },
 }
