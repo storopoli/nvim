@@ -11,6 +11,7 @@ return {
       nls.builtins.diagnostics.write_good,
       nls.builtins.formatting.rustfmt,
       nls.builtins.formatting.shellharden,
+      nls.builtins.formatting.beautysh,
       nls.builtins.formatting.isort,
       nls.builtins.formatting.black,
       nls.builtins.diagnostics.shellcheck,
