@@ -296,7 +296,7 @@ return {
           "quarto",
           "rmd",
           "typst",
-       },
+        },
       })
       lsp.lua_ls.setup({ -- requires lua-language-server to be installed
         capabilities = capabilities,
@@ -361,7 +361,7 @@ return {
             latexFormatter = "texlab",
             forwardSearchAfter = false,
             onSave = false,
-          }
+          },
         },
       })
       lsp.typst_lsp.setup({ capabilities = capabilities }) -- requires typst-lsp to be installed

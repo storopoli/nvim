@@ -26,18 +26,23 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim", -- Indent guides
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "LazyFile" },
+    main = "ibl",
     opts = {
-      char = "│",
-      filetype_exclude = {
-        "help",
-        "netrw",
-        "Trouble",
-        "lazy",
-        "notify",
+      indent = {
+        char = "│",
+        tab_char = "│",
       },
-      show_trailing_blankline_indent = false,
-      show_current_context = true,
+      scope = { enabled = false },
+      exclude = {
+        filetypes = {
+          "help",
+          "netrw",
+          "Trouble",
+          "lazy",
+          "notify",
+        },
+      },
     },
   },
   {
@@ -47,7 +52,7 @@ return {
     config = true,
     -- stylua: ignore
     keys = {
-      { "<leader>st", "<CMD>TodoTelescope<CR>",                        desc = "[T]odo" },
+      { "<>st",       "<CMD>TodoTelescope<CR>",                        desc = "[T]odo" },
       { "<leader>K",  "<CMD>TodoLocList<CR>",                          desc = "Todo: List" },
       { "<leader>[t", "<CMD>require('todo-comments').jump_prev()<CR>", desc = "Previous [T]odo" },
       { "<leader>]t", "<CMD>require('todo-comments').jump_next()<CR>", desc = "Next [T]odo" },
