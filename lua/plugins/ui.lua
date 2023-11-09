@@ -26,7 +26,7 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim", -- Indent guides
-    event = { "LazyFile" },
+    event = { "BufReadPost", "BufNewFile" },
     main = "ibl",
     opts = {
       indent = {
