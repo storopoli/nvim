@@ -22,12 +22,10 @@ vim.opt.rtp:prepend(lazypath)
 -------------------------------------------------------------------------------
 -- Plugins
 -------------------------------------------------------------------------------
-require("lazy").setup(
-  "plugins",
-  opts = {
-    lockfile = vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lazy-lock.json",
-  }
-)
+local opts = {
+  lockfile = vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lazy-lock.json",
+}
+require("lazy").setup( "plugins", opts)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
