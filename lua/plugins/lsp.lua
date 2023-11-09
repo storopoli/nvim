@@ -374,6 +374,12 @@ return {
         "j-hui/fidget.nvim", -- Status for LSP stuff
         tag = "legacy",
         event = "LspAttach",
-        config = true,
+        config = function()
+            require("fidget").setup({
+                window = {
+                    blend = 0,
+                },
+            })
+        end,
     },
 }
