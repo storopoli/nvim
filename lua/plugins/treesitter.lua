@@ -40,7 +40,7 @@ return {
           "tsv",
           "tsx",
           "typescript",
-          "typst",
+          -- "typst",
           "toml",
           "vim",
           "vimdoc",
