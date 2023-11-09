@@ -224,6 +224,7 @@ return {
       })
       -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
       lsp.ruff_lsp.setup({ capabilities = capabilities }) -- requires ruff-lsp to be installed
+      lsp.gopls.setup({ capabilities = capabilities })    -- requires gopls to be installed
       lsp.tsserver.setup({                                -- requires typescript-language-server to be installed
         capabilities = capabilities,
         -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
@@ -278,8 +279,8 @@ return {
               "rsweave",
             },
             language = "en-US",
-            disabledRules = { "en-US" = { "PROFANITY" } },
-            dictionary = { "en-US" = { "builtin" } },
+            disabledRules = { ["en-US"] = { "PROFANITY" } },
+            dictionary = { ["en-US"] = { "builtin" } },
           },
         },
         filetypes = {
@@ -301,7 +302,6 @@ return {
         capabilities = capabilities,
         settings = {
           Lua = {
-            workspace = { checkThirdParty = false },
             telemetry = { enable = false },
             hint = { enable = true },
             workspace = {
@@ -348,6 +348,7 @@ return {
             schemas = {
               ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
               ["https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json"] = "roles/{tasks,handlers}/*.{yml,yaml}",
+            },
           },
         },
       })
