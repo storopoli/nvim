@@ -225,6 +225,15 @@ return {
                     { name = "buffer", group_index = 2 },
                 },
             })
+            -- Use cmdline & path source for ':'
+            cmp.setup.cmdline(":", {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                    { name = "path", group_index = 2 },
+                }, {
+                    { name = "cmdline", group_index = 2 },
+                }),
+            })
             -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
             lsp.ruff_lsp.setup({ capabilities = capabilities }) -- requires ruff-lsp to be installed
             lsp.gopls.setup({ capabilities = capabilities }) -- requires gopls to be installed
