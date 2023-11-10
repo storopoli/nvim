@@ -27,30 +27,29 @@ return {
     },
     config = function()
       -- See `:help telescope` and `:help telescope.setup()`
+      local actions = require("telescope.actions")
       require("telescope").setup({
         defaults = {
           mappings = {
             i = {
-              ["<C-u>"] = false,
-              ["<C-d>"] = false,
-              ["<C-j>"] = "move_selection_next",
-              ["<C-k>"] = "move_selection_previous",
+              ["<C-n>"] = "move_selection_next",
+              ["<C-p>"] = "move_selection_previous",
               ["<C-Down>"] = function(...)
-                return require("telescope.actions").cycle_history_next(...)
+                return actions.cycle_history_next(...)
               end,
               ["<C-Up>"] = function(...)
-                return require("telescope.actions").cycle_history_prev(...)
+                return actions.cycle_history_prev(...)
               end,
               ["<C-f>"] = function(...)
-                return require("telescope.actions").preview_scrolling_down(...)
+                return actions.preview_scrolling_down(...)
               end,
               ["<C-b>"] = function(...)
-                return require("telescope.actions").preview_scrolling_up(...)
+                return actions.preview_scrolling_up(...)
               end,
             },
             n = {
               ["q"] = function(...)
-                return require("telescope.actions").close(...)
+                return actions.close(...)
               end,
             },
           },
