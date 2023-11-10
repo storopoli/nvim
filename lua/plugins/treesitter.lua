@@ -36,6 +36,7 @@ return {
           "regex",
           "rst",
           "rust",
+          "ssh_config",
           "sql",
           "tsv",
           "tsx",
