@@ -9,7 +9,7 @@ return {
         python = { "isort", "black", "ruff_fix", "ruff_format" }, -- Conform will run multiple formatters sequentially
         sh = { "shfmt", "shellharden" },
         fish = { "fish_indent" },
-        nix = { "nixfmt" },
+        nix = { "nixpkgs_fmt" },
         toml = { "taplo", "dprint" },
         markdown = { { "prettierd", "prettier" }, { "dprint", "markdownlint" } }, -- Use a sub-list to run only the first available formatter
         html = { { "prettierd", "prettier" } },
