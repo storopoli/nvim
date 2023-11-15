@@ -3,7 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 My Minimalist Neovim config.
-Banish those unworthy soydev IDEs to the depths of Hell!
+Banish those unworthy [soydev](https://storopoli.io/2023-11-10-2023-11-13-soydev/)
+IDEs to the depths of Hell!
 
 ![Screenshot](./screenshot.jpg)
 
