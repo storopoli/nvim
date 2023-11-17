@@ -12,8 +12,8 @@ return {
         fish = { "fish_indent" },
         nix = { "nixpkgs_fmt" },
         toml = { "taplo", "dprint" },
+        markdown = { "dprint" },
         -- Use a sub-list to run only the first available formatter
-        markdown = { { "prettierd", "prettier" }, { "dprint", "markdownlint" }, "cbfmt" },
         html = { { "prettierd", "prettier" } },
         css = { { "prettierd", "prettier" } },
         javascript = { { "prettierd", "prettier" } },
@@ -21,7 +21,6 @@ return {
         json = { "dprint" },
         just = { "just" },
         typst = { "typstfmt" },
-        ["*"] = { "codespell" },
         ["_"] = { "trim_whitespace" },
       },
       format_on_save = function(bufnr)
@@ -32,7 +31,6 @@ return {
         return { timeout_ms = 500, lsp_fallback = "always" }
       end,
     })
-    require("conform.formatters.markdownlint").command = "markdownlint-cli2"
     vim.api.nvim_create_user_command("FormatDisable", function(args)
       if args.bang then
         -- FormatDisable! will disable formatting just for this buffer
