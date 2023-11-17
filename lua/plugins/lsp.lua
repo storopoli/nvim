@@ -236,9 +236,16 @@ return {
                 }),
             })
             -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-            lsp.ruff_lsp.setup({ capabilities = capabilities }) -- requires ruff-lsp to be installed
+            lsp.ruff_lsp.setup({ -- requires ruff-lsp to be installed
+                capabilities = capabilities,
+                on_attach = function(client, bufnr)
+                    -- disable hover in favor of pyright
+                    client.server_capabilities.hoverProvider = false
+                end,
+            })
+            lsp.pyright.setup({ capabilities = capabilities }) -- requires pyright to be installed
             lsp.gopls.setup({ capabilities = capabilities }) -- requires gopls to be installed
-            lsp.tsserver.setup({                          -- requires typescript-language-server to be installed
+            lsp.tsserver.setup({                         -- requires typescript-language-server to be installed
                 capabilities = capabilities,
                 -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
                 javascript = {

@@ -21,6 +21,7 @@ IDEs to the depths of Hell!
   - `rust-analyzer`
   - `gopls`
   - `vscode-langservers-extracted`
+  - `pyright`
   - `ruff-lsp`
   - `lua-language-server`
   - `nil`
