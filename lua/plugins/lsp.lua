@@ -4,15 +4,16 @@ return {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
-            "hrsh7th/nvim-cmp",   -- Autocompletion plugin
-            "hrsh7th/cmp-buffer", -- nvim-cmp source for buffer words
-            "hrsh7th/cmp-path",   -- nvim-cmp source for filesystem paths
-            "hrsh7th/cmp-nvim-lua", -- nvim-cmp source for neovim Lua API
+            "hrsh7th/cmp-nvim-lsp",  -- LSP source for nvim-cmp
+            "hrsh7th/nvim-cmp",      -- Autocompletion plugin
+            "hrsh7th/cmp-buffer",    -- nvim-cmp source for buffer words
+            "hrsh7th/cmp-path",      -- nvim-cmp source for filesystem paths
+            "hrsh7th/cmp-nvim-lua",  -- nvim-cmp source for neovim Lua API
             "saadparwaiz1/cmp_luasnip", -- Snippets source for nvim-cmp
-            "L3MON4D3/LuaSnip",   -- Snippets plugin
-            "folke/neodev.nvim",  -- Neovim development Lua utils
-            "petertriho/cmp-git", -- nvim-cmp source for git
+            "L3MON4D3/LuaSnip",      -- Snippets plugin
+            "folke/neodev.nvim",     -- Neovim development Lua utils
+            "petertriho/cmp-git",    -- nvim-cmp source for git
+            "barreiroleo/ltex_extra.nvim", -- ltex-ls extra stuff: codeactions and language
             -- Copilot
             {
                 "zbirenbaum/copilot.lua",
@@ -274,6 +275,9 @@ return {
             lsp.julials.setup({ capabilities = capabilities }) -- requires julia to be installed
             lsp.ltex.setup({                              -- requires ltex-ls to be installed
                 capabilities = capabilities,
+                on_attach = function(client, bufnr)
+                    require("ltex_extra").setup()
+                end,
                 settings = {
                     ltex = {
                         enabled = {
