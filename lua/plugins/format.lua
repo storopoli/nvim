@@ -10,7 +10,6 @@ return {
         python = { "isort", "black", "ruff_fix", "ruff_format" },
         sh = { "shfmt", "shellharden" },
         fish = { "fish_indent" },
-        nix = { "nixpkgs_fmt" },
         toml = { "taplo", "dprint" },
         markdown = { "dprint" },
         -- Use a sub-list to run only the first available formatter

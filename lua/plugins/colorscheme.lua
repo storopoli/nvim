@@ -29,12 +29,12 @@ return {
           },
           telescope = {
             enabled = true,
-            -- style = "nvchad"
           },
           cmp = true,
           gitsigns = true,
           nvimtree = true,
           treesitter = true,
+          markdown = true,
           notify = true,
           fidget = true,
           flash = true,

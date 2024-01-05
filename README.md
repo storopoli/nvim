@@ -24,9 +24,7 @@ IDEs to the depths of Hell!
   - `pyright`
   - `ruff-lsp`
   - `lua-language-server`
-  - `nil`
   - `taplo`
-  - `julia`
   - `yaml-language-server`
   - `marksman`
   - `ltex-ls`
@@ -46,5 +44,4 @@ IDEs to the depths of Hell!
   - `shfmt`
   - `shellharden`
   - `stylua`
-  - `nixpkgs-fmt`
   - `typstfmt`

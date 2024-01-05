@@ -24,7 +24,6 @@ return {
                     panel = { enabled = false },
                     filetypes = {
                         markdown = true,
-                        help = true,
                     },
                 },
                 keys = {
@@ -69,35 +68,35 @@ return {
                     -- Buffer local mappings.
                     -- See `:help vim.lsp.*` for documentation on any of the below functions
                     -- Code Actions
-                    vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename" })
-                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code [A]ction" })
+                    vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename", buffer = ev.buf })
+                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code [A]ction", buffer = ev.buf })
                     -- Definitions
-                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
-                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
+                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition", buffer = ev.buf })
+                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation", buffer = ev.buf })
                     vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references)
                     vim.keymap.set(
                         "n",
                         "<leader>sD",
                         require("telescope.builtin").lsp_document_symbols,
-                        { desc = "[D]ocument [S]symbols" }
+                        { desc = "[D]ocument [S]symbols", buffer = ev.buf }
                     )
                     vim.keymap.set(
                         "n",
                         "<leader>sy",
                         require("telescope.builtin").lsp_dynamic_workspace_symbols,
-                        { desc = "S[y]mbols" }
+                        { desc = "S[y]mbols", buffer = ev.buf }
                     )
                     -- See `:help K` for why this keymap
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
-                    vim.keymap.set("n", "gS", vim.lsp.buf.signature_help, { desc = "[S]ignature Documentation" })
+                    vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation", buffer = ev.buf })
+                    vim.keymap.set("n", "gS", vim.lsp.buf.signature_help, { desc = "[S]ignature Documentation", buffer = ev.buf })
                     -- Lesser used LSP functionality
-                    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
-                    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type [D]efinition" })
-                    vim.keymap.set("n", "<leader>cwa", vim.lsp.buf.add_workspace_folder, { desc = "[A]dd Folder" })
-                    vim.keymap.set("n", "<leader>cwr", vim.lsp.buf.remove_workspace_folder, { desc = "[R]emove Folder" })
+                    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration", buffer = ev.buf })
+                    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type [D]efinition", buffer = ev.buf })
+                    vim.keymap.set("n", "<leader>cwa", vim.lsp.buf.add_workspace_folder, { desc = "[A]dd Folder", buffer = ev.buf })
+                    vim.keymap.set("n", "<leader>cwr", vim.lsp.buf.remove_workspace_folder, { desc = "[R]emove Folder", buffer = ev.buf })
                     vim.keymap.set("n", "<leader>cwl", function()
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                    end, { desc = "[L]ist Folders" })
+                    end, { desc = "[L]ist Folders", buffer = ev.buf })
                     -- Enable inlay hints
                     local inlay_hint = vim.lsp.buf.inlayhints or vim.lsp.inlayhints
                     if vim.fn.has("nvim-0.10.0") and inlay_hint then
@@ -108,9 +107,19 @@ return {
                             -- set the keymap to toggle on/off
                             vim.keymap.set("n", "<leader>ch", function()
                                 vim.lsp.inlay_hint(ev.buf, nil)
-                            end, { desc = "Toggle Inlay [H]ints" })
+                            end, { desc = "Toggle Inlay [H]ints", buffer = ev.buf })
                         end
                     end
+                    -- command to toggle inline diagnostics
+                    vim.api.nvim_create_user_command("DiagnosticsToggleVirtualText", function()
+                        local current_value = vim.diagnostic.config().virtual_text
+                        if current_value then
+                            vim.diagnostic.config({ virtual_text = false })
+                        else
+                            vim.diagnostic.config({ virtual_text = true })
+                        end
+                    end, {})
+                    vim.keymap.set("n", "<leader>cd", "<CMD>DiagnosticsToggle<CR>", { desc = "[Disable [D]iagnostics]", buffer = ev.buf })
                 end,
             })
             -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -124,11 +133,9 @@ return {
             luasnip.config.setup({})
             -- tab fix for copilot
             local has_words_before = function()
-                if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-                    return false
-                end
+                unpack = unpack or table.unpack
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+                return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
             end
             cmp.setup({
                 completion = {
@@ -150,39 +157,73 @@ return {
                     end
                 end,
                 mapping = cmp.mapping.preset.insert({
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4), -- Up
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4), -- Down
+                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<CR>"] = cmp.mapping.confirm({
-                        behavior = cmp.ConfirmBehavior.Replace,
-                        select = true,
-                    }),
                     ["<C-e>"] = cmp.mapping.abort(),
-                    ["<Tab>"] = vim.schedule_wrap(function(fallback)
-                        if cmp.visible() and has_words_before() then
-                            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                        elseif luasnip.expand_or_jumpable() then
+                    ["<C-n>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            if #cmp.get_entries() == 1 then
+                                cmp.confirm({ select = true })
+                            else
+                                cmp.select_next_item()
+                            end
+                        elseif luasnip.expand_or_locally_jumpable() then
                             luasnip.expand_or_jump()
+                        elseif has_words_before() then
+                            cmp.complete()
+                            if #cmp.get_entries() == 1 then
+                                cmp.confirm({ select = true })
+                            end
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+                    -- Accept currently selected item.
+                    -- Set `select` to `false` to only confirm explicitly selected items.
+                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    -- Don't mess with my <CR>
+                    --[[
+                    ["<CR>"] = cmp.mapping({
+                        i = function(fallback)
+                            if cmp.visible() and cmp.get_active_entry() then
+                                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                            else
+                                fallback()
+                            end
+                        end,
+                        s = cmp.mapping.confirm({ select = true }),
+                        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+                    }),
+                    --]]
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expand_or_locally_jumpable() then
+                            luasnip.expand_or_jump()
+                        elseif has_words_before() then
+                            cmp.complete()
                         else
                             fallback()
                         end
                     end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
-                            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-                        elseif luasnip.jumpable() then
-                            luasnip.expand_or_jump()
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
                         else
                             fallback()
                         end
                     end, { "i", "s" }),
+
                 }),
                 sources = {
-                    { name = "copilot",  group_index = 2 },
-                    { name = "nvim_lsp", group_index = 2 },
-                    { name = "luasnip",  group_index = 2 },
-                    -- { name = "buffer", group_index = 2 },
-                    { name = "path",     group_index = 2 },
+                    { name = "copilot" },
+                    { name = "nvim_lsp" },
+                    { name = "luasnip" },
+                    -- { name = "buffer" },
+                    { name = "path" },
                 },
                 sorting = { -- copilot_cmp suggestion
                     priority_weight = 2,
@@ -208,31 +249,31 @@ return {
             -- Set configuration for specific filetype.
             cmp.setup.filetype("gitcommit", {
                 sources = cmp.config.sources({
-                    { name = "git",     group_index = 2 },
-                    { name = "buffer",  group_index = 2 },
-                    { name = "copilot", group_index = 2 },
+                    { name = "git" },
+                    { name = "buffer" },
+                    { name = "copilot" },
                 }),
             })
             cmp.setup.filetype({ "markdown", "text", "sql" }, {
                 sources = cmp.config.sources({
-                    { name = "buffer",  group_index = 2 },
-                    { name = "copilot", group_index = 2 },
+                    { name = "buffer" },
+                    { name = "copilot" },
                 }),
             })
             -- Use buffer source for `/` and `?`
             cmp.setup.cmdline({ "/", "?" }, {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = {
-                    { name = "buffer", group_index = 2 },
+                    { name = "buffer" },
                 },
             })
             -- Use cmdline & path source for ':'
             cmp.setup.cmdline(":", {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = cmp.config.sources({
-                    { name = "path", group_index = 2 },
+                    { name = "path" },
                 }, {
-                    { name = "cmdline", group_index = 2 },
+                    { name = "cmdline" },
                 }),
             })
             -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
@@ -276,10 +317,9 @@ return {
             lsp.cssls.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
             lsp.jsonls.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
             lsp.eslint.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
-            lsp.nil_ls.setup({ capabilities = capabilities }) -- requires nil-lsp to be installed
             lsp.taplo.setup({ capabilities = capabilities }) -- requires taplo to be installed
             lsp.marksman.setup({ capabilities = capabilities }) -- requires marksman to be installed
-            lsp.julials.setup({ capabilities = capabilities }) -- requires julia to be installed
+            -- lsp.julials.setup({ capabilities = capabilities }) -- requires julia to be installed
             lsp.ltex.setup({                              -- requires ltex-ls to be installed
                 capabilities = capabilities,
                 on_attach = function(client, bufnr)
@@ -369,8 +409,10 @@ return {
                 settings = {
                     yamlls = {
                         schemas = {
-                            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-                            ["https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json"] = "roles/{tasks,handlers}/*.{yml,yaml}",
+                            ["kubernetes"] = "*.yaml",
+                            ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yaml",
+                            ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.yaml",
+                            ["https://json.schemastore.org/github-action.json"] = ".github/actions/*/action.yaml",
                         },
                     },
                 },

@@ -43,6 +43,9 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Spell
+vim.keymap.set({ "n", "v" }, "<leader>S", "<CMD>setlocal spell!<CR>", { desc = "Set [S]pell"})
+
 -- Easy save
 vim.keymap.set("n", "<leader>w", "<CMD>w<CR>", { silent = true, desc = "[S]ave File" })
 
@@ -55,10 +58,10 @@ vim.keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap 
 vim.keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
 
 -- Global Yank/Paste
-vim.keymap.set(
-  { "n", "v" },
+vim.keymap.set({ "n", "v" },
   "<leader>y",
-  '"*y :let @+=@*<CR>',
+  [["+y]],
   { noremap = true, silent = true, desc = "Global [Y]ank" }
 )
-vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { noremap = true, silent = true, desc = "Global [P]aste" })
+vim.keymap.set("x", "<leader>p", [["_dP]], { noremap = true, silent = true, desc = "Global [P]aste" })
+

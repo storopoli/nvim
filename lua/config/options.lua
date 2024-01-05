@@ -2,71 +2,77 @@
 -- Options
 -------------------------------------------------------------------------------
 -- Set highlight on search
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+vim.o.hlsearch = false
+vim.o.incsearch = true
 
 -- Make line numbers default
-vim.opt.nu = true
-vim.opt.relativenumber = true
+vim.o.nu = true
+vim.o.relativenumber = true
 
 -- Tab settings
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 
 -- Lazy redraw for crazy macros
---vim.opt.lazyredraw = true
+--vim.o.lazyredraw = true
 
 -- A lot of plugins depends on hidden true
-vim.opt.hidden = true
+vim.o.hidden = true
 
 -- set command line height to zero/two lines
--- vim.opt.cmdheight = 2
-vim.opt.cmdheight = 0
+-- vim.o.cmdheight = 2
+vim.o.cmdheight = 0
 
 -- Statusbar
-vim.opt.laststatus = 3
+vim.o.laststatus = 3
 
 -- Winbar on top of the windows
-vim.opt.winbar = "%=%m %f"
+vim.o.winbar = "%=%m %f"
 
 -- Enable mouse mode
-vim.opt.mouse = "a"
+vim.o.mouse = "a"
 
 -- Scrolling
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
+vim.o.scrolloff = 8
+vim.o.sidescrolloff = 8
 
 -- Time in milliseconds to wait for a mapped sequence to complete
-vim.opt.timeoutlen = 50
+vim.o.timeoutlen = 50
+vim.o.ttyfast = true
+vim.o.updatetime = 50
 
 -- No wrap
-vim.opt.wrap = false
+vim.o.wrap = false
 
 -- Enable break indent
-vim.opt.breakindent = true
+vim.o.breakindent = true
 
 -- Better undo history
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath("data") .. "undo"
-vim.opt.undofile = true
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.undodir = vim.fn.stdpath("data") .. "undo"
+vim.o.undofile = true
 
 -- Case insensitive searching UNLESS /C or capital in search
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 -- Decrease update time
-vim.opt.updatetime = 250
+vim.o.updatetime = 250
 vim.wo.signcolumn = "yes"
 
 -- color column
-vim.opt.colorcolumn = "80"
+vim.o.colorcolumn = "80"
 
 -- Window splitting
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.o.splitbelow = true
+vim.o.splitright = true
+
+-- Transparency
+vim.o.winblend = 5
+
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key

@@ -6,7 +6,6 @@ return {
       python = { "ruff" },            -- requires ruff to be installed
       lua = { "luacheck" },           -- requires luacheck to be installed
       sh = { "shellcheck" },          -- requires shellcheck to be installed
-      nix = { "nix" },                -- requires nix to be installed
       javascript = { "eslint" },      -- requires eslint to be installed
       javascriptreact = { "eslint" }, -- requires eslint to be installed
       typescript = { "eslint" },      -- requires eslint to be installed
