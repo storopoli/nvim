@@ -9,9 +9,9 @@ return {
       {
         "<leader>/",
         "<CMD>Telescope current_buffer_fuzzy_find<CR>",
-        desc = "[/] Fuzzily search in current buffer]",
+        desc = "[/] Fuzzily search in current buffer",
       },
-      { "<leader>sr", "<CMD>Telescope resume<CR>",       desc = "[R]esume Previous Seasch" },
+      { "<leader>sr", "<CMD>Telescope resume<CR>",       desc = "[R]esume Previous Search" },
       { "<leader>sf", "<CMD>Telescope git_files<CR>",    desc = "[F]iles" },
       { "<leader>sF", "<CMD>Telescope find_files<CR>",   desc = "[F]iles All" },
       { "<leader>sh", "<CMD>Telescope help_tags<CR>",    desc = "[H]elp" },
