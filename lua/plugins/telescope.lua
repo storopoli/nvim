@@ -9,7 +9,7 @@ return {
       {
         "<leader>/",
         "<CMD>Telescope current_buffer_fuzzy_find<CR>",
-        desc = "[/] Fuzzily search in current buffer]",
+        desc = "[/] Fuzzily search in current buffer",
       },
       { "<leader>sr", "<CMD>Telescope resume<CR>",       desc = "[R]esume Previous Seasch" },
       { "<leader>sf", "<CMD>Telescope git_files<CR>",    desc = "[F]iles" },
