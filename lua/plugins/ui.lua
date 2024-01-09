@@ -52,7 +52,7 @@ return {
     config = true,
     -- stylua: ignore
     keys = {
-      { "<>st",       "<CMD>TodoTelescope<CR>",                        desc = "[T]odo" },
+      { "<leader>st",       "<CMD>TodoTelescope<CR>",                        desc = "[T]odo" },
       { "<leader>K",  "<CMD>TodoLocList<CR>",                          desc = "Todo: List" },
       { "<leader>[t", "<CMD>require('todo-comments').jump_prev()<CR>", desc = "Previous [T]odo" },
       { "<leader>]t", "<CMD>require('todo-comments').jump_next()<CR>", desc = "Next [T]odo" },
