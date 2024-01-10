@@ -4,13 +4,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("gitsigns").setup({
-        signs = {
-          add = { text = "+" },
-          change = { text = "~" },
-          delete = { text = "_" },
-          topdelete = { text = "‾" },
-          changedelete = { text = "~" },
-        },
         on_attach = function(bufnr)
           local gs = package.loaded.gitsigns
           -- Navigation
@@ -67,7 +60,7 @@ return {
           vim.keymap.set(
             { "o", "x" },
             "ih",
-            "<CMD><C-U>Gitsigns select_hunk<CR>",
+            ":<C-U>Gitsigns select_hunk<CR>",
             { buffer = bufnr, desc = "GitSigns Select Hunk" }
           )
         end,
