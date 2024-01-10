@@ -75,48 +75,6 @@ return {
     end,
   },
   {
-    "tpope/vim-fugitive",
-    event = "VeryLazy",
-    keys = {
-      { "<leader>gi", "<CMD>Git<CR>",                 desc = "Fug[i]tive" },
-      -- It allows me to easily set the branch I am pushing and any tracking
-      { "<leader>gt", "<CMD>Git push -u origin <CR>", desc = "Git Push [T]agging" },
-    },
-    config = function()
-      vim.api.nvim_create_autocmd({ "Filetype" }, {
-        pattern = { "fugitive" },
-        callback = function()
-          -- Better commit remaps with no "enter" dialog
-          vim.keymap.set("n", "cc", "<CMD>silent! Git commit --quiet<CR>", { silent = true, buffer = true })
-          vim.keymap.set("n", "ca", "<CMD>silent! Git commit --quiet --amend<CR>", { silent = true, buffer = true })
-          vim.keymap.set(
-            "n",
-            "ce",
-            "<CMD>silent! Git commit --quiet --amend --no-edit<CR>",
-            { silent = true, buffer = true }
-          )
-          -- Push and Pull
-          vim.keymap.set("n", "p", "<CMD>silent! Git pull<CR>", { silent = true, buffer = true })
-          vim.keymap.set("n", "P", "<CMD>silent! Git push<CR>", { silent = true, buffer = true })
-        end,
-      })
-    end,
-  },
-  {
-    "tpope/vim-rhubarb", -- Fugitive-companion to interact with github
-    event = "VeryLazy",
-    config = function()
-      vim.api.nvim_create_autocmd({ "Filetype" }, {
-        pattern = { "gitcommit" },
-        callback = function()
-          -- Autocompletion for @ and #
-          vim.keymap.set("i", "@", "@<C-x><C-o>", { silent = true, buffer = true })
-          vim.keymap.set("i", "#", "#<C-x><C-o>", { silent = true, buffer = true })
-        end,
-      })
-    end,
-  },
-  {
     "kdheepak/lazygit.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
