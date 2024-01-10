@@ -44,3 +44,15 @@ IDEs to the depths of Hell!
   - `stylua`
   - `nixpkgs-fmt`
   - `typstfmt`
+
+## Nix Alternative
+
+One can use the same configs here with one-liner:
+
+```bash
+nix run github:storopoli/neovix
+```
+
+or add to your flake.
+
+Check [`storopoli/neovix`](https://github.com/storopoli/neovix) for more details.
