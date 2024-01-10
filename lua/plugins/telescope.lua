@@ -34,25 +34,6 @@ return {
             i = {
               ["<C-n>"] = "move_selection_next",
               ["<C-p>"] = "move_selection_previous",
-              ["<C-u>"] = false,
-              ["<C-d>"] = false,
-              ["<C-Down>"] = function(...)
-                return actions.cycle_history_next(...)
-              end,
-              ["<C-Up>"] = function(...)
-                return actions.cycle_history_prev(...)
-              end,
-              ["<C-f>"] = function(...)
-                return actions.preview_scrolling_down(...)
-              end,
-              ["<C-b>"] = function(...)
-                return actions.preview_scrolling_up(...)
-              end,
-            },
-            n = {
-              ["q"] = function(...)
-                return actions.close(...)
-              end,
             },
           },
         },
