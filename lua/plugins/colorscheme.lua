@@ -37,7 +37,6 @@ return {
           markdown = true,
           notify = true,
           fidget = true,
-          flash = true,
           indent_blankline = true,
           noice = true,
           which_key = true,
