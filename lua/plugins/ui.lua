@@ -15,6 +15,7 @@ return {
         ["<leader>h"] = { name = "+hunks" },
         ["<leader>s"] = { name = "+search" },
         ["<leader>n"] = { name = "+noice" },
+        ["<leader>x"] = { name = "+trouble" },
       },
     },
     config = function(_, opts)
