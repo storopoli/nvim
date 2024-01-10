@@ -28,7 +28,6 @@ IDEs to the depths of Hell!
   - `taplo`
   - `yaml-language-server`
   - `marksman`
-  - `texlab`
   - `typst-lsp`
 - Linters:
   - `shellcheck`

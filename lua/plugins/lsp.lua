@@ -388,18 +388,6 @@ return {
           },
         },
       })
-      lsp.texlab.setup({ -- requires texlab to be installed
-        capabilities = capabilities,
-        settings = {
-          build = {
-            executable = "tectonic",
-            args = { "-X", "build", "--keep-logs", "--keep-intermediates" },
-            latexFormatter = "texlab",
-            forwardSearchAfter = false,
-            onSave = false,
-          },
-        },
-      })
       lsp.typst_lsp.setup({ capabilities = capabilities }) -- requires typst-lsp to be installed
     end,
   },
