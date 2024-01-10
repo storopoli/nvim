@@ -71,7 +71,7 @@ return {
           -- Definitions
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition", buffer = ev.buf })
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation", buffer = ev.buf })
-          vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references)
+          vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, { desc = "[R]eferences" })
           vim.keymap.set(
             "n",
             "<leader>sD",
@@ -90,36 +90,6 @@ return {
           -- Lesser used LSP functionality
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration", buffer = ev.buf })
           vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type [D]efinition", buffer = ev.buf })
-          vim.keymap.set(
-            "n",
-            "<leader>cwa",
-            vim.lsp.buf.add_workspace_folder,
-            { desc = "[A]dd Folder", buffer = ev.buf }
-          )
-          vim.keymap.set(
-            "n",
-            "<leader>cwr",
-            vim.lsp.buf.remove_workspace_folder,
-            { desc = "[R]emove Folder", buffer = ev.buf }
-          )
-          vim.keymap.set("n", "<leader>cwl", function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, { desc = "[L]ist Folders", buffer = ev.buf })
-          -- command to toggle inline diagnostics
-          vim.api.nvim_create_user_command("DiagnosticsToggleVirtualText", function()
-            local current_value = vim.diagnostic.config().virtual_text
-            if current_value then
-              vim.diagnostic.config({ virtual_text = false })
-            else
-              vim.diagnostic.config({ virtual_text = true })
-            end
-          end, {})
-          vim.keymap.set(
-            "n",
-            "<leader>cd",
-            "<CMD>DiagnosticsToggle<CR>",
-            { desc = "[Toggle [D]iagnostics]", buffer = ev.buf }
-          )
         end,
       })
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -275,14 +245,6 @@ return {
           { name = "cmdline" },
         }),
       })
-      -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-      lsp.ruff_lsp.setup({ -- requires ruff-lsp to be installed
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- disable hover in favor of pyright
-          client.server_capabilities.hoverProvider = false
-        end,
-      })
       lsp.pyright.setup({ capabilities = capabilities }) -- requires pyright to be installed
       lsp.gopls.setup({ capabilities = capabilities }) -- requires gopls to be installed
       lsp.tsserver.setup({ capabilities = capabilities }) -- requires typescript-language-server to be installed
@@ -294,62 +256,9 @@ return {
       lsp.nil_ls.setup({ capabilities = capabilities }) -- requires nil-lsp to be installed
       lsp.taplo.setup({ capabilities = capabilities }) -- requires taplo to be installed
       lsp.marksman.setup({ capabilities = capabilities }) -- requires marksman to be installed
-      lsp.lua_ls.setup({ -- requires lua-language-server to be installed
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            telemetry = { enable = false },
-            hint = { enable = true },
-            workspace = {
-              checkThirdParty = false,
-            },
-            completion = {
-              callSnippet = "Replace",
-            },
-            diagnostics = {
-              globals = { "vim" },
-            },
-          },
-        },
-      })
-      lsp.rust_analyzer.setup({ -- requires rust-analyzer to be installed
-        capabilities = capabilities,
-        settings = {
-          ["rust-analyzer"] = {
-            cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              runBuildScripts = true,
-            },
-            checkOnSave = true,
-            -- Add clippy lints for Rust
-            check = {
-              allFeatures = true,
-              command = "clippy",
-              extraArgs = { "--no-deps" },
-            },
-            imports = {
-              granularity = {
-                enforce = true,
-                group = "create",
-              },
-            },
-          },
-        },
-      })
-      lsp.yamlls.setup({ -- requires yaml-language-server to be installed
-        capabilities = capabilities,
-        settings = {
-          yamlls = {
-            schemas = {
-              ["kubernetes"] = "*.yaml",
-              ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yaml",
-              ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.yaml",
-              ["https://json.schemastore.org/github-action.json"] = ".github/actions/*/action.yaml",
-            },
-          },
-        },
-      })
+      lsp.lua_ls.setup({ capabilities = capabilities }) -- requires lua-language-server to be installed
+      lsp.rust_analyzer.setup({ capabilities = capabilities }) -- requires rust-analyzer to be installed
+      lsp.yamlls.setup({ capabilities = capabilities }) -- requires yaml-language-server to be installed
       lsp.typst_lsp.setup({ capabilities = capabilities }) -- requires typst-lsp to be installed
     end,
   },
