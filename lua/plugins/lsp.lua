@@ -332,48 +332,6 @@ return {
       lsp.nil_ls.setup({ capabilities = capabilities }) -- requires nil-lsp to be installed
       lsp.taplo.setup({ capabilities = capabilities }) -- requires taplo to be installed
       lsp.marksman.setup({ capabilities = capabilities }) -- requires marksman to be installed
-      -- lsp.julials.setup({ capabilities = capabilities }) -- requires julia to be installed
-      lsp.ltex.setup({ -- requires ltex-ls to be installed
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          require("ltex_extra").setup()
-        end,
-        settings = {
-          ltex = {
-            enabled = {
-              "bibtex",
-              "gitcommit",
-              "context",
-              "context.tex",
-              "html",
-              "latex",
-              "markdown",
-              "pandoc",
-              "typst",
-              "org",
-              "restructuredtext",
-              "rsweave",
-            },
-            language = "en-US",
-            disabledRules = { ["en-US"] = { "PROFANITY" } },
-            dictionary = { ["en-US"] = { "builtin" } },
-          },
-        },
-        filetypes = {
-          "bib",
-          "gitcommit",
-          "markdown",
-          "org",
-          "plaintex",
-          "rst",
-          "rnoweb",
-          "tex",
-          "pandoc",
-          "quarto",
-          "rmd",
-          "typst",
-        },
-      })
       lsp.lua_ls.setup({ -- requires lua-language-server to be installed
         capabilities = capabilities,
         settings = {
