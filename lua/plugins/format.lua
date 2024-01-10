@@ -6,6 +6,7 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         rust = { "rustfmt" },
+        nix = { "nixpkgs_fmt" },
         -- Conform will run multiple formatters sequentially
         python = { "isort", "black", "ruff_fix", "ruff_format" },
         sh = { "shfmt", "shellharden" },
