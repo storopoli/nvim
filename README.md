@@ -35,7 +35,7 @@ IDEs to the depths of Hell!
   - `shellcheck`
   - `luacheck`
   - `ruff`
-  - `eslint`
+  - `eslint_d`
   - `luacheck`
 - Formatters:
   - `dprint`

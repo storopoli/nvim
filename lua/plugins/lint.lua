@@ -7,10 +7,10 @@ return {
       lua = { "luacheck" }, -- requires luacheck to be installed
       sh = { "shellcheck" }, -- requires shellcheck to be installed
       nix = { "nix" }, -- requires nix to be installed
-      javascript = { "eslint" }, -- requires eslint to be installed
-      javascriptreact = { "eslint" }, -- requires eslint to be installed
-      typescript = { "eslint" }, -- requires eslint to be installed
-      typescriptreact = { "eslint" }, -- requires eslint to be installed
+      javascript = { "eslint_d" }, -- requires eslint_d to be installed
+      javascriptreact = { "eslint_d" }, -- requires eslint_d to be installed
+      typescript = { "eslint_d" }, -- requires eslint_d to be installed
+      typescriptreact = { "eslint_d" }, -- requires eslint_d to be installed
     }
     vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
       callback = function()
