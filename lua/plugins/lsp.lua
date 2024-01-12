@@ -167,6 +167,7 @@ return {
             lsp.cssls.setup({ capabilities = capabilities })   -- requires vscode-langservers-extracted to be installed
             lsp.jsonls.setup({ capabilities = capabilities })  -- requires vscode-langservers-extracted to be installed
             lsp.eslint.setup({ capabilities = capabilities })  -- requires vscode-langservers-extracted to be installed
+            lsp.tailwindss.setup({ capabilities = capabilities }) -- requires tailwindcss-language-server to be installed
             lsp.nil_ls.setup({ capabilities = capabilities })  -- requires nil-lsp to be installed
             lsp.taplo.setup({ capabilities = capabilities })   -- requires taplo to be installed
             lsp.marksman.setup({ capabilities = capabilities }) -- requires marksman to be installed
