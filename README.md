@@ -38,6 +38,7 @@ IDEs to the depths of Hell!
   - `luacheck`
 - Formatters:
   - `dprint`
+  - `markdownlint-cli2`
   - `prettierd`
   - `isort`
   - `black`

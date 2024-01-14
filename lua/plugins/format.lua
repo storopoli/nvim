@@ -12,7 +12,7 @@ return {
         sh = { "shfmt", "shellharden" },
         fish = { "fish_indent" },
         toml = { "taplo", "dprint" },
-        markdown = { "dprint" },
+        markdown = { "markdownlint-cli2", "dprint" },
         -- Use a sub-list to run only the first available formatter
         html = { { "prettierd", "prettier" } },
         css = { { "prettierd", "prettier" } },
