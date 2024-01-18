@@ -22,7 +22,6 @@ IDEs to the depths of Hell!
   - `gopls`
   - `vscode-langservers-extracted`
   - `tailwindcss-language-server`
-  - `htmx-lsp`
   - `pyright`
   - `lua-language-server`
   - `nil`
