@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 return {
   {
     -- LSP Configuration & Plugins
@@ -11,9 +12,15 @@ return {
       "hrsh7th/cmp-nvim-lua", -- nvim-cmp source for neovim Lua API
       "saadparwaiz1/cmp_luasnip", -- Snippets source for nvim-cmp
       "L3MON4D3/LuaSnip", -- Snippets plugin
-      "barreiroleo/ltex_extra.nvim", -- ltex-ls extra stuff: codeactions and language
+      "folke/neodev.nvim", -- Neovim development Lua utils
+      "petertriho/cmp-git", -- nvim-cmp source for git
+      "zbirenbaum/copilot-cmp", -- nvim-cmp for copilot
     },
     config = function()
+      -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+      require("neodev").setup({
+        library = { types = true },
+      })
       local lsp = require("lspconfig")
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -66,6 +73,14 @@ return {
       local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").lazy_load()
       luasnip.config.setup({})
+      -- tab fix for copilot
+      local has_words_before = function()
+        if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+          return false
+        end
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+      end
       cmp.setup({
         completion = {
           completeopt = "menu,menuone,noinsert",
@@ -81,7 +96,7 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<C-n>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
+            if cmp.visible() and has_words_before() then
               if #cmp.get_entries() == 1 then
                 cmp.confirm({ select = true })
               else
@@ -114,9 +129,10 @@ return {
           end, { "i", "s" }),
         }),
         sources = {
-          { name = "nvim_lsp" },
+          { name = "copilot", priority = 100 },
           { name = "luasnip" },
-          { name = "buffer" },
+          { name = "nvim_lsp" },
+          { name = "buffer", keyword_length = 5, max_item_count = 5 },
           { name = "path" },
         },
       })
@@ -156,6 +172,7 @@ return {
 
       -- LSPs
       lsp.pyright.setup({ capabilities = capabilities }) -- requires pyright to be installed
+      lsp.ruff_lsp.setup({ capabilities = capabilities }) -- requires ruff-lsp to be installed
       lsp.gopls.setup({ capabilities = capabilities }) -- requires gopls to be installed
       lsp.tsserver.setup({ capabilities = capabilities }) -- requires typescript-language-server to be installed
       lsp.bashls.setup({ capabilities = capabilities }) -- requires bash-language-server to be installed
@@ -163,13 +180,65 @@ return {
       lsp.cssls.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
       lsp.jsonls.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
       lsp.eslint.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
-      lsp.tailwindss.setup({ capabilities = capabilities }) -- requires tailwindcss-language-server to be installed
+      lsp.tailwindcss.setup({ capabilities = capabilities }) -- requires tailwindcss-language-server to be installed
       lsp.nil_ls.setup({ capabilities = capabilities }) -- requires nil-lsp to be installed
       lsp.taplo.setup({ capabilities = capabilities }) -- requires taplo to be installed
       lsp.marksman.setup({ capabilities = capabilities }) -- requires marksman to be installed
-      lsp.lua_ls.setup({ capabilities = capabilities }) -- requires lua-language-server to be installed
-      lsp.rust_analyzer.setup({ capabilities = capabilities }) -- requires rust-analyzer to be installed
-      lsp.yamlls.setup({ capabilities = capabilities }) -- requires yaml-language-server to be installed
+      lsp.lua_ls.setup({ -- requires lua-language-server to be installed
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            telemetry = { enable = false },
+            hint = { enable = true },
+            workspace = {
+              checkThirdParty = false,
+            },
+            completion = {
+              callSnippet = "Replace",
+            },
+            diagnostics = {
+              globals = { "vim" },
+            },
+          },
+        },
+      })
+      lsp.rust_analyzer.setup({ -- requires rust-analyzer to be installed
+        capabilities = capabilities,
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              runBuildScripts = true,
+            },
+            checkOnSave = true,
+            -- Add clippy lints for Rust
+            check = {
+              allFeatures = true,
+              command = "clippy",
+              extraArgs = { "--no-deps" },
+            },
+            imports = {
+              granularity = {
+                enforce = true,
+                group = "create",
+              },
+            },
+          },
+        },
+      })
+      lsp.yamlls.setup({ -- requires yaml-language-server to be installed
+        capabilities = capabilities,
+        settings = {
+          yamlls = {
+            schemas = {
+              ["https=//raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yaml",
+              ["https=//json.schemastore.org/github-workflow.json"] = ".github/workflows/*.yaml",
+              ["https=//json.schemastore.org/github-action.json"] = ".github/actions/*/action.yaml",
+            },
+          },
+        },
+      })
       lsp.typst_lsp.setup({ capabilities = capabilities }) -- requires typst-lsp to be installed
     end,
   },
