@@ -12,6 +12,7 @@ return {
       "saadparwaiz1/cmp_luasnip", -- Snippets source for nvim-cmp
       "L3MON4D3/LuaSnip", -- Snippets plugin
       "barreiroleo/ltex_extra.nvim", -- ltex-ls extra stuff: codeactions and language
+      "zbirenbaum/copilot-cmp", -- copilot
     },
     config = function()
       local lsp = require("lspconfig")
@@ -118,6 +119,7 @@ return {
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
+          { name = "copilot" },
         },
       })
 
