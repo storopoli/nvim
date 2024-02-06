@@ -19,9 +19,6 @@ vim.o.expandtab = true
 -- Lazy redraw for crazy macros
 --vim.o.lazyredraw = true
 
--- A lot of plugins depends on hidden true
-vim.o.hidden = true
-
 -- set command line height to zero/two lines
 -- vim.o.cmdheight = 2
 vim.o.cmdheight = 0
