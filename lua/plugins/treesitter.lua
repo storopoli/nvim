@@ -40,7 +40,7 @@ return {
           "tsv",
           "tsx",
           "typescript",
-          -- "typst",
+          -- "typst", -- TODO: Add this back when it's fixed
           "toml",
           "vim",
           "vimdoc",

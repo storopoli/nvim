@@ -172,7 +172,13 @@ return {
 
       -- LSPs
       lsp.pyright.setup({ capabilities = capabilities }) -- requires pyright to be installed
-      lsp.ruff_lsp.setup({ capabilities = capabilities }) -- requires ruff-lsp to be installed
+      lsp.ruff_lsp.setup({ -- requires ruff-lsp to be installed
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          -- Disable hover in favor of Pyright
+          client.server_capabilities.hoverProvider = false
+        end,
+      })
       lsp.gopls.setup({ capabilities = capabilities }) -- requires gopls to be installed
       lsp.tsserver.setup({ capabilities = capabilities }) -- requires typescript-language-server to be installed
       lsp.bashls.setup({ capabilities = capabilities }) -- requires bash-language-server to be installed
