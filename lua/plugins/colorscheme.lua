@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 return {
   {
     "catppuccin/nvim", -- Set colorscheme to Catppuccin Theme

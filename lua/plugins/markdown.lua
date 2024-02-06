@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 return {
   "iamcco/markdown-preview.nvim",
   ft = "markdown",

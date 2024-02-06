@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 -- Disable built-in plugins
 local disabled_built_ins = {
   "netrw",
