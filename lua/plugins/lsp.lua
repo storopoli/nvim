@@ -63,6 +63,34 @@ return {
           -- Lesser used LSP functionality
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration", buffer = ev.buf })
           vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type [D]efinition", buffer = ev.buf })
+          -- Enable inlay hints
+          local inlay_hint = vim.lsp.buf.inlayhints or vim.lsp.inlayhints
+          if vim.fn.has("nvim-0.10.0") and inlay_hint then
+            local client = vim.lsp.get_client_by_id(ev.data.client_id)
+            if client.supports_method("textDocument/inlayHint") then
+              vim.g.inlay_hints_visible = true
+              vim.lsp.inlay_hint(ev.buf, true)
+              -- set the keymap to toggle on/off
+              vim.keymap.set("n", "<leader>ch", function()
+                vim.lsp.inlay_hint(ev.buf, nil)
+              end, { desc = "Toggle Inlay [H]ints", buffer = ev.buf })
+            end
+          end
+          -- command to toggle inline diagnostics
+          vim.api.nvim_create_user_command("DiagnosticsToggleVirtualText", function()
+            local current_value = vim.diagnostic.config().virtual_text
+            if current_value then
+              vim.diagnostic.config({ virtual_text = false })
+            else
+              vim.diagnostic.config({ virtual_text = true })
+            end
+          end, {})
+          vim.keymap.set(
+            "n",
+            "<leader>cd",
+            "<CMD>DiagnosticsToggle<CR>",
+            { desc = "[Disable [D]iagnostics]", buffer = ev.buf }
+          )
         end,
       })
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -181,7 +209,32 @@ return {
         end,
       })
       lsp.gopls.setup({ capabilities = capabilities }) -- requires gopls to be installed
-      lsp.tsserver.setup({ capabilities = capabilities }) -- requires typescript-language-server to be installed
+      lsp.tsserver.setup({ -- requires typescript-language-server to be installed
+        capabilities = capabilities,
+        -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
+        javascript = {
+          inlayHints = {
+            includeInlayEnumMemberValueHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayVariableTypeHints = true,
+          },
+        },
+        typescript = {
+          inlayHints = {
+            includeInlayEnumMemberValueHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayVariableTypeHints = true,
+          },
+        },
+      })
       lsp.bashls.setup({ capabilities = capabilities }) -- requires bash-language-server to be installed
       lsp.html.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
       lsp.cssls.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
