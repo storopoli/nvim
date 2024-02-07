@@ -36,9 +36,8 @@ IDEs to the depths of Hell!
   - `ruff`
   - `eslint_d`
 - Formatters:
-  - `dprint`
   - `markdownlint-cli2`
-  - `prettierd`
+  - `prettierd` or `prettier`
   - `isort`
   - `black`
   - `shfmt`

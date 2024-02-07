@@ -12,8 +12,8 @@ return {
         python = { "isort", "black", "ruff_fix", "ruff_format" },
         sh = { "shfmt", "shellharden" },
         fish = { "fish_indent" },
-        toml = { "taplo", "dprint" },
-        markdown = { "markdownlint-cli2", "dprint" },
+        toml = { "taplo" },
+        markdown = { "markdownlint-cli2" },
         -- Use a sub-list to run only the first available formatter
         html = { { "prettierd", "prettier" } },
         css = { { "prettierd", "prettier" } },
