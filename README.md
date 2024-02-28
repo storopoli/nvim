@@ -46,6 +46,26 @@ IDEs to the depths of Hell!
   - `nixpkgs-fmt`
   - `typstfmt`
 
+## Local Configurations with `exrc`
+
+Local settings can be configured by  creating a `.nvim.lua` file in the project's
+root directory.
+If neovim is launched in the same directory as `.nvim.lua`,
+it will evaluate your user configuration first,
+followed by the local configuration.
+
+An example `.nvim.lua` might be as follows:
+
+```lua
+local nvim_lsp = require('lspconfig')
+
+nvim_lsp.rust_analyzer.setup({
+  root_dir = function()
+    return vim.fn.getcwd()
+  end
+})
+```
+
 ## Nix Alternative
 
 One can use the same configs here with one-liner:

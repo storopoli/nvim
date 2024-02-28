@@ -71,6 +71,13 @@ vim.o.splitright = true
 -- Transparency
 vim.o.winblend = 5
 
+-- If enabled, Neovim will search for the following files in the current directory:
+-- - .nvim.lua
+-- - .nvimrc
+-- - .exrc
+-- Add files with `:trust`, remove with `:trust ++remove`
+vim.o.exrc = true
+
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
