@@ -20,6 +20,7 @@ IDEs to the depths of Hell!
   - `typescript-language-server`
   - `rust-analyzer`
   - `gopls`
+  - `julials`
   - `vscode-langservers-extracted`
   - `tailwindcss-language-server`
   - `pyright`
