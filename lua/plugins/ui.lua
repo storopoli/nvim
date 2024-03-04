@@ -7,17 +7,17 @@ return {
       plugins = { spelling = true },
       defaults = {
         mode = { "n", "v" },
-        ["g"] = { name = "+goto" },
-        ["]"] = { name = "+next" },
-        ["["] = { name = "+prev" },
-        ["<leader>c"] = { name = "+code" },
-        ["<leader>cw"] = { name = "+workspace" },
-        ["<leader>g"] = { name = "+git" },
-        ["<leader>h"] = { name = "+hunks" },
-        ["<leader>s"] = { name = "+search" },
-        ["<leader>n"] = { name = "+noice" },
-        ["<leader>x"] = { name = "+trouble" },
-        ["<leader>t"] = { name = "+session" },
+        ["g"] = { name = "+goto", _ = "which_key_ignore" },
+        ["]"] = { name = "+next", _ = "which_key_ignore" },
+        ["["] = { name = "+prev", _ = "which_key_ignore" },
+        ["<leader>c"] = { name = "+code", _ = "which_key_ignore" },
+        ["<leader>cw"] = { name = "+workspace", _ = "which_key_ignore" },
+        ["<leader>g"] = { name = "+git", _ = "which_key_ignore" },
+        ["<leader>h"] = { name = "+hunks", _ = "which_key_ignore" },
+        ["<leader>s"] = { name = "+search", _ = "which_key_ignore" },
+        ["<leader>n"] = { name = "+noice", _ = "which_key_ignore" },
+        ["<leader>x"] = { name = "+trouble", _ = "which_key_ignore" },
+        ["<leader>t"] = { name = "+session", _ = "which_key_ignore" },
       },
     },
     config = function(_, opts)
@@ -47,14 +47,14 @@ return {
     "folke/todo-comments.nvim", -- Highlight TODO, NOTE, FIX, WARN, HACK, PERF, and TEST
     dependencies = "nvim-lua/plenary.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    config = true,
-        -- stylua: ignore
-        keys = {
-            { "<leader>st", "<CMD>TodoTelescope<CR>",                        desc = "[T]odo" },
-            { "<leader>K",  "<CMD>TodoLocList<CR>",                          desc = "Todo: List" },
-            { "<leader>[t", "<CMD>require('todo-comments').jump_prev()<CR>", desc = "Previous [T]odo" },
-            { "<leader>]t", "<CMD>require('todo-comments').jump_next()<CR>", desc = "Next [T]odo" },
-        },
+    opts = { signs = false },
+    -- stylua: ignore
+    keys = {
+        { "<leader>st", "<CMD>TodoTelescope<CR>",                        desc = "[T]odo" },
+        { "<leader>K",  "<CMD>TodoLocList<CR>",                          desc = "Todo: List" },
+        { "<leader>[t", "<CMD>require('todo-comments').jump_prev()<CR>", desc = "Previous [T]odo" },
+        { "<leader>]t", "<CMD>require('todo-comments').jump_next()<CR>", desc = "Next [T]odo" },
+    },
   },
   {
     "folke/noice.nvim", -- Better UI
