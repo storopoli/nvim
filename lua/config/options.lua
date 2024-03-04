@@ -5,6 +5,8 @@
 -- Set highlight on search
 vim.o.hlsearch = false
 vim.o.incsearch = true
+-- Preview substitutions live, as you type!
+vim.o.inccommand = "split"
 
 -- Make line numbers default
 vim.o.nu = true
@@ -67,6 +69,10 @@ vim.o.colorcolumn = "80"
 -- Window splitting
 vim.o.splitbelow = true
 vim.o.splitright = true
+
+-- Sets how neovim will display certain whitespace in the editor.
+vim.o.list = true
+vim.o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Transparency
 vim.o.winblend = 5
