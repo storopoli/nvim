@@ -60,4 +60,4 @@ vim.keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap 
 
 -- Global Yank/Paste
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { noremap = true, silent = true, desc = "Global [Y]ank" })
-vim.keymap.set("x", "<leader>p", [["_dP]], { noremap = true, silent = true, desc = "Global [P]aste" })
+vim.keymap.set("x", "<leader>p", '"+p', { noremap = true, silent = true, desc = "Global [P]aste" })
