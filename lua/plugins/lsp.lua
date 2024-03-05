@@ -58,7 +58,7 @@ return {
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       -- Add additional capabilities supported by nvim-cmp
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
       -- luasnip setup
       local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").lazy_load()
@@ -80,16 +80,16 @@ return {
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-          ['<C-l>'] = cmp.mapping(function()
+          ["<C-l>"] = cmp.mapping(function()
             if luasnip.expand_or_locally_jumpable() then
               luasnip.expand_or_jump()
             end
-          end, { 'i', 's' }),
-          ['<C-h>'] = cmp.mapping(function()
+          end, { "i", "s" }),
+          ["<C-h>"] = cmp.mapping(function()
             if luasnip.locally_jumpable(-1) then
               luasnip.jump(-1)
             end
-          end, { 'i', 's' }),
+          end, { "i", "s" }),
         }),
         sources = {
           { name = "copilot", priority = 100 },
@@ -146,7 +146,7 @@ return {
         end,
       })
       lsp.gopls.setup({ capabilities = capabilities }) -- requires gopls to be installed
-      lsp.tsserver.setup({ capabilities = capabilities })-- requires typescript-language-server to be installed
+      lsp.tsserver.setup({ capabilities = capabilities }) -- requires typescript-language-server to be installed
       lsp.bashls.setup({ capabilities = capabilities }) -- requires bash-language-server to be installed
       lsp.html.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
       lsp.cssls.setup({ capabilities = capabilities }) -- requires vscode-langservers-extracted to be installed
@@ -169,8 +169,8 @@ return {
               -- Tells lua_ls where to find all the Lua files that you have loaded
               -- for your neovim configuration.
               library = {
-                '${3rd}/luv/library',
-                unpack(vim.api.nvim_get_runtime_file('', true)),
+                "${3rd}/luv/library",
+                unpack(vim.api.nvim_get_runtime_file("", true)),
               },
             },
             completion = {
@@ -183,7 +183,7 @@ return {
           },
         },
       })
-      lsp.rust_analyzer.setup({ capabilities = capabilities } )-- requires rust-analyzer to be installed
+      lsp.rust_analyzer.setup({ capabilities = capabilities }) -- requires rust-analyzer to be installed
       lsp.yamlls.setup({ -- requires yaml-language-server to be installed
         capabilities = capabilities,
         settings = {
