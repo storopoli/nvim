@@ -3,6 +3,7 @@ return {
   {
     "nvim-telescope/telescope.nvim", -- Telescope
     branch = "0.1.x",
+    event = "VimEnter",
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
