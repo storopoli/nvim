@@ -56,7 +56,7 @@
   "render-markdown.nvim": { "branch": "main", "commit": "3115ff748d6885fe1af349feb6b73de03eda8e12" },
   "rustaceanvim": { "branch": "master", "commit": "9b881500f721b2b2c7c33e13cec5659753854a07" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
-  "telescope-manix": { "branch": "master", "commit": "ca8a8efc4f54739928658d73110e9fd798506183" },
+  "telescope-manix": { "branch": "master", "commit": "b44925ee893db2cad9da4b14a4f284c54768df40" },
   "telescope-zoxide": { "branch": "main", "commit": "54bfe630bad08dc9891ec78c7cf8db38dd725c97" },
   "telescope.nvim": { "branch": "master", "commit": "b4da76be54691e854d3e0e02c36b0245f945c2c7" },
   "telescope_hoogle": { "branch": "master", "commit": "5c2ae51bcf905a7101134a597e6f7be2dc05f975" },
