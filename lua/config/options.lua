@@ -6,3 +6,6 @@ vim.g.have_nerd_font = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- Don't sync clipboard with system
+vim.opt.clipboard = ""
